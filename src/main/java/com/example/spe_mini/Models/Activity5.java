@@ -1,14 +1,13 @@
 package com.example.spe_mini.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -23,5 +22,7 @@ public class Activity5 {
     private Date date;
     private String achievement;
     private String remark;
+    @ManyToMany(mappedBy = "activity5s", cascade = { CascadeType.ALL })
+    private Set<Employee> employees = new HashSet<Employee>();
 
 }

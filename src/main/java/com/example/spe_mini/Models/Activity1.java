@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -21,4 +23,6 @@ public class Activity1 {
     private Date date;
     private int noOfParticipants;
     private String remark;
+    @ManyToMany(mappedBy = "activity1s", cascade = { CascadeType.ALL })
+    private Set<Employee> employees = new HashSet<Employee>();
 }
