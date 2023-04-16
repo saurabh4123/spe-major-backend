@@ -18,7 +18,7 @@ public class Activity5 {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int a5_id;
     private String studentName;
-    private String Class;
+    private String standard;
     private Date date;
     private String achievement;
     private String remark;
