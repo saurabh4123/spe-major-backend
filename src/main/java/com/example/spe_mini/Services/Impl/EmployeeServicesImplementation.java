@@ -4,6 +4,8 @@ import com.example.spe_mini.Repo.*;
 import com.example.spe_mini.Services.EmployeeServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -26,10 +28,21 @@ public class EmployeeServicesImplementation implements EmployeeServices {
     private Activity5Repo activity5Repo;
 
     @Override
+    public List<Employee> getAllEmployees() {
+        return this.employeeRepo.findAll();
+    }
+
+    @Override
+    public Employee getEmployeeByID(Integer id) {
+        Employee employee=this.employeeRepo.findById(id).orElseThrow();
+        return employee;
+    }
+
+    @Override
     public Employee createEmployee(Employee employee)
     {
-        this.employeeRepo.save(employee);
-        return employee;
+        Employee employee1=this.employeeRepo.save(employee);
+        return employee1;
     }
 
     @Override

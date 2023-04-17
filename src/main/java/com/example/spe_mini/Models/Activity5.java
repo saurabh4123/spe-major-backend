@@ -23,7 +23,6 @@ public class Activity5 {
     private String achievement;
     private String remark;
     @ManyToMany(mappedBy = "activity5s", cascade = { CascadeType.ALL })
-    @JsonBackReference
     private Set<Employee> employees = new HashSet<Employee>();
 
 }
