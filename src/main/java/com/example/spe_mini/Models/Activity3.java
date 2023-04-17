@@ -1,6 +1,7 @@
 package com.example.spe_mini.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,5 +22,6 @@ public class Activity3 {
     private Date date;
     private String nameOfResearchers;
     @ManyToMany(mappedBy = "activity3s", cascade = { CascadeType.ALL })
+    @JsonIgnore
     private Set<Employee> employees = new HashSet<Employee>();
 }
