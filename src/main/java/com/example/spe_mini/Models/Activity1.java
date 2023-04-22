@@ -24,7 +24,5 @@ public class Activity1 {
     private Date date;
     private int noOfParticipants;
     private String remark;
-    @ManyToMany(mappedBy = "activity1s", cascade = { CascadeType.ALL })
-    @JsonIgnore
-    private Set<Employee> employees = new HashSet<Employee>();
+
 }

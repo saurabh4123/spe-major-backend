@@ -32,31 +32,4 @@ public class EmployeeController {
         Employee employee=this.employeeServices.getEmployeeByID(id);
         return new ResponseEntity<>(employee,HttpStatus.ACCEPTED);
     }
-
-    @GetMapping("/assignActivity1/{eid}/{a_id}")
-    public ResponseEntity<Employee> assignActivity1(@PathVariable("eid") Integer eid,@PathVariable("a_id") Integer a_id){
-        Employee employee1 = this.employeeServices.assignActivity1(eid,a_id);
-        return new ResponseEntity<>(employee1, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/assignActivity2/{eid}/{a_id}")
-    public ResponseEntity<Employee> assignActivity2(@PathVariable("eid") Integer eid,@PathVariable("a_id") Integer a_id){
-        Employee employee1 = this.employeeServices.assignActivity2(eid,a_id);
-        return new ResponseEntity<>(employee1, HttpStatus.CREATED);
-    }
-    @GetMapping("/assignActivity3/{eid}/{a_id}")
-    public ResponseEntity<Employee> assignActivity3(@PathVariable("eid") Integer eid,@PathVariable("a_id") Integer a_id){
-        Employee employee1 = this.employeeServices.assignActivity3(eid,a_id);
-        return new ResponseEntity<>(employee1, HttpStatus.CREATED);
-    }
-    @GetMapping("/assignActivity4/{eid}/{a_id}")
-    public ResponseEntity<Employee> assignActivity4(@PathVariable("eid") Integer eid,@PathVariable("a_id") Integer a_id){
-        Employee employee1 = this.employeeServices.assignActivity4(eid,a_id);
-        return new ResponseEntity<>(employee1, HttpStatus.CREATED);
-    }
-    @GetMapping("/assignActivity5/{eid}/{a_id}")
-    public ResponseEntity<Employee> assignActivity5(@PathVariable("eid") Integer eid,@PathVariable("a_id") Integer a_id){
-        Employee employee1 = this.employeeServices.assignActivity5(eid,a_id);
-        return new ResponseEntity<>(employee1, HttpStatus.CREATED);
-    }
 }
