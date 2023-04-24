@@ -22,34 +22,34 @@ public class ActivityController {
     @Autowired
     private Activity5Services activity5Services;
 
-    @PostMapping("/add-activity1")
-    public ResponseEntity<?> addActivity(@RequestBody Activity1 activity1)
+    @PostMapping("/add-activity1/{eid}")
+    public ResponseEntity<?> addActivity(@RequestBody Activity1 activity1,@PathVariable("eid") Integer id)
     {
-            Activity1 activity11=this.activity1Services.addActivity(activity1);
-            return new ResponseEntity<>(activity11, HttpStatus.CREATED);
+            Employee emp=this.activity1Services.addActivity(activity1,id);
+            return new ResponseEntity<>(emp, HttpStatus.CREATED);
     }
-    @PostMapping("/add-activity2")
-    public ResponseEntity<?> addActivity(@RequestBody Activity2 activity2)
+    @PostMapping("/add-activity2/{eid}")
+    public ResponseEntity<?> addActivity(@RequestBody Activity2 activity2,@PathVariable("eid") Integer id)
     {
-        Activity2 activity21=this.activity2Services.addActivity(activity2);
-        return new ResponseEntity<>(activity21, HttpStatus.CREATED);
+        Employee emp=this.activity2Services.addActivity(activity2,id);
+        return new ResponseEntity<>(emp, HttpStatus.CREATED);
     }
-    @PostMapping("/add-activity3")
-    public ResponseEntity<?> addActivity(@RequestBody Activity3 activity3)
+    @PostMapping("/add-activity3/{eid}")
+    public ResponseEntity<?> addActivity(@RequestBody Activity3 activity3,@PathVariable("eid") Integer id)
     {
-        Activity3 activity31=this.activity3Services.addActivity(activity3);
-        return new ResponseEntity<>(activity31, HttpStatus.CREATED);
+        Employee emp=this.activity3Services.addActivity(activity3,id);
+        return new ResponseEntity<>(emp, HttpStatus.CREATED);
     }
-    @PostMapping("/add-activity4")
-    public ResponseEntity<?> addActivity(@RequestBody Activity4 activity4)
+    @PostMapping("/add-activity4/{eid}")
+    public ResponseEntity<?> addActivity(@RequestBody Activity4 activity4,@PathVariable("eid") Integer id)
     {
-        Activity4 activity41=this.activity4Services.addActivity(activity4);
-        return new ResponseEntity<>(activity41, HttpStatus.CREATED);
+        Employee emp=this.activity4Services.addActivity(activity4,id);
+        return new ResponseEntity<>(emp, HttpStatus.CREATED);
     }
-    @PostMapping("/add-activity5")
-    public ResponseEntity<?> addActivity(@RequestBody Activity5 activity5)
+    @PostMapping("/add-activity5/{eid}")
+    public ResponseEntity<?> addActivity(@RequestBody Activity5 activity5,@PathVariable("eid") Integer id)
     {
-        Activity5 activity51=this.activity5Services.addActivity(activity5);
-        return new ResponseEntity<>(activity51, HttpStatus.CREATED);
+        Employee emp=this.activity5Services.addActivity(activity5,id);
+        return new ResponseEntity<>(emp, HttpStatus.CREATED);
     }
 }
