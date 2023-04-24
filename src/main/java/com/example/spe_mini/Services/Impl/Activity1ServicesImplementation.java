@@ -28,9 +28,4 @@ public class Activity1ServicesImplementation implements Activity1Services {
         return emp;
     }
 
-    @Override
-    public List<Activity1> findActivityByEmployee(Employee emp) {
-
-        return null;
-    }
 }

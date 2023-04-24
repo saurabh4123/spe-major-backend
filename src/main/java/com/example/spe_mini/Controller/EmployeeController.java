@@ -32,4 +32,10 @@ public class EmployeeController {
         Employee employee=this.employeeServices.getEmployeeByID(id);
         return new ResponseEntity<>(employee,HttpStatus.ACCEPTED);
     }
+
+    @GetMapping("/report-employee/{emp-id}")
+    public ResponseEntity<?> generateEmployeeReport(@RequestParam("year") int year, @RequestParam("month") int month)
+    {
+
+    }
 }
