@@ -5,6 +5,7 @@ import com.example.spe_mini.Services.EmployeeServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -43,5 +44,65 @@ public class EmployeeServicesImplementation implements EmployeeServices {
     {
         Employee employee1=this.employeeRepo.save(employee);
         return employee1;
+    }
+
+    @Override
+    public List<Activity1> getActivity1s(Employee employee, int month, int year) {
+        List<Activity1> activity1s = employee.getActivity1s();
+        List<Activity1> tempActivity1s = new ArrayList<Activity1>();
+        for(Activity1 activity1:activity1s) {
+            if(activity1.getDate().getMonth()==month && activity1.getDate().getYear()==year) {
+                tempActivity1s.add(activity1);
+            }
+        }
+        return tempActivity1s;
+    }
+
+    @Override
+    public List<Activity2> getActivity2s(Employee employee, int month, int year) {
+        List<Activity2> activity2s = employee.getActivity2s();
+        List<Activity2> tempActivity2s = new ArrayList<Activity2>();
+        for(Activity2 activity2:activity2s) {
+            if(activity2.getDate().getMonth()==month && activity2.getDate().getYear()==year) {
+                tempActivity2s.add(activity2);
+            }
+        }
+        return tempActivity2s;
+    }
+
+    @Override
+    public List<Activity3> getActivity3s(Employee employee, int month, int year) {
+        List<Activity3> activity3s = employee.getActivity3s();
+        List<Activity3> tempActivity3s = new ArrayList<Activity3>();
+        for(Activity3 activity3:activity3s) {
+            if(activity3.getDate().getMonth()==month && activity3.getDate().getYear()==year) {
+                tempActivity3s.add(activity3);
+            }
+        }
+        return tempActivity3s;
+    }
+
+    @Override
+    public List<Activity4> getActivity4s(Employee employee, int month, int year) {
+        List<Activity4> activity4s = employee.getActivity4s();
+        List<Activity4> tempActivity4s = new ArrayList<Activity4>();
+        for(Activity4 activity4:activity4s) {
+            if(activity4.getDate().getMonth()==month && activity4.getDate().getYear()==year) {
+                tempActivity4s.add(activity4);
+            }
+        }
+        return tempActivity4s;
+    }
+
+    @Override
+    public List<Activity5> getActivity5s(Employee employee, int month, int year) {
+        List<Activity5> activity5s = employee.getActivity5s();
+        List<Activity5> tempActivity5s = new ArrayList<Activity5>();
+        for(Activity5 activity5:activity5s) {
+            if(activity5.getDate().getMonth()==month && activity5.getDate().getYear()==year) {
+                tempActivity5s.add(activity5);
+            }
+        }
+        return tempActivity5s;
     }
 }
