@@ -5,9 +5,8 @@ import com.example.spe_mini.Services.EmployeeServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public class EmployeeServicesImplementation implements EmployeeServices {
@@ -51,8 +50,11 @@ public class EmployeeServicesImplementation implements EmployeeServices {
         List<Activity1> activity1s = employee.getActivity1s();
         List<Activity1> tempActivity1s = new ArrayList<Activity1>();
         for(Activity1 activity1:activity1s) {
-            if(activity1.getDate().getMonth()==month && activity1.getDate().getYear()==year) {
+            Calendar cal=Calendar.getInstance();
+            cal.setTime(activity1.getDate());
+            if(cal.get(Calendar.MONTH)==month-1 && cal.get(Calendar.YEAR)==year) {
                 tempActivity1s.add(activity1);
+//                System.out.println("vnvnvj");
             }
         }
         return tempActivity1s;
@@ -63,7 +65,9 @@ public class EmployeeServicesImplementation implements EmployeeServices {
         List<Activity2> activity2s = employee.getActivity2s();
         List<Activity2> tempActivity2s = new ArrayList<Activity2>();
         for(Activity2 activity2:activity2s) {
-            if(activity2.getDate().getMonth()==month && activity2.getDate().getYear()==year) {
+            Calendar cal=Calendar.getInstance();
+            cal.setTime(activity2.getDate());
+            if(cal.get(Calendar.MONTH)==month-1 && cal.get(Calendar.YEAR)==year) {
                 tempActivity2s.add(activity2);
             }
         }
@@ -75,7 +79,9 @@ public class EmployeeServicesImplementation implements EmployeeServices {
         List<Activity3> activity3s = employee.getActivity3s();
         List<Activity3> tempActivity3s = new ArrayList<Activity3>();
         for(Activity3 activity3:activity3s) {
-            if(activity3.getDate().getMonth()==month && activity3.getDate().getYear()==year) {
+            Calendar cal=Calendar.getInstance();
+            cal.setTime(activity3.getDate());
+            if(cal.get(Calendar.MONTH)==month-1 && cal.get(Calendar.YEAR)==year) {
                 tempActivity3s.add(activity3);
             }
         }
@@ -87,7 +93,9 @@ public class EmployeeServicesImplementation implements EmployeeServices {
         List<Activity4> activity4s = employee.getActivity4s();
         List<Activity4> tempActivity4s = new ArrayList<Activity4>();
         for(Activity4 activity4:activity4s) {
-            if(activity4.getDate().getMonth()==month && activity4.getDate().getYear()==year) {
+            Calendar cal=Calendar.getInstance();
+            cal.setTime(activity4.getDate());
+            if(cal.get(Calendar.MONTH)==month-1 && cal.get(Calendar.YEAR)==year) {
                 tempActivity4s.add(activity4);
             }
         }
@@ -99,7 +107,9 @@ public class EmployeeServicesImplementation implements EmployeeServices {
         List<Activity5> activity5s = employee.getActivity5s();
         List<Activity5> tempActivity5s = new ArrayList<Activity5>();
         for(Activity5 activity5:activity5s) {
-            if(activity5.getDate().getMonth()==month && activity5.getDate().getYear()==year) {
+            Calendar cal=Calendar.getInstance();
+            cal.setTime(activity5.getDate());
+            if(cal.get(Calendar.MONTH)==month-1 && cal.get(Calendar.YEAR)==year) {
                 tempActivity5s.add(activity5);
             }
         }

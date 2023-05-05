@@ -11,10 +11,13 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeExcelExporter {
+    DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
     private XSSFWorkbook workbook;
     private List<Activity1> activity1s;
@@ -91,7 +94,7 @@ public class EmployeeExcelExporter {
                 createCell(sheet, row, columnCount++, activity1.getA1_id(), style);
                 createCell(sheet, row, columnCount++, activity1.getEvent(), style);
                 createCell(sheet, row, columnCount++, activity1.getTitle(), style);
-                createCell(sheet, row, columnCount++, activity1.getDate(), style);
+                createCell(sheet, row, columnCount++, dateFormatter.format(activity1.getDate()), style);
                 createCell(sheet, row, columnCount++, activity1.getNoOfParticipants(), style);
                 createCell(sheet, row, columnCount++, activity1.getRemark(), style);
 
@@ -111,7 +114,7 @@ public class EmployeeExcelExporter {
                 createCell(sheet, row, columnCount++, activity2.getA2_id(), style);
                 createCell(sheet, row, columnCount++, activity2.getAuthor(), style);
                 createCell(sheet, row, columnCount++, activity2.getTitle(), style);
-                createCell(sheet, row, columnCount++, activity2.getDate(), style);
+                createCell(sheet, row, columnCount++, dateFormatter.format(activity2.getDate()), style);
                 createCell(sheet, row, columnCount++, activity2.getRemark(), style);
                 createCell(sheet, row, columnCount++, activity2.getPublication(), style);
 
@@ -130,7 +133,7 @@ public class EmployeeExcelExporter {
 
                 createCell(sheet, row, columnCount++, activity3.getA3_id(), style);
                 createCell(sheet, row, columnCount++, activity3.getTitleOfResearch(), style);
-                createCell(sheet, row, columnCount++, activity3.getDate(), style);
+                createCell(sheet, row, columnCount++, dateFormatter.format(activity3.getDate()), style);
                 createCell(sheet, row, columnCount++, activity3.getNameOfResearchers(), style);
 
             }
@@ -149,7 +152,7 @@ public class EmployeeExcelExporter {
                 createCell(sheet, row, columnCount++, activity4.getA4_id(), style);
                 createCell(sheet, row, columnCount++, activity4.getName(), style);
                 createCell(sheet, row, columnCount++, activity4.getAchievement(), style);
-                createCell(sheet, row, columnCount++, activity4.getDate(), style);
+                createCell(sheet, row, columnCount++, dateFormatter.format(activity4.getDate()), style);
                 createCell(sheet, row, columnCount++, activity4.getRemark(), style);
 
             }
@@ -168,7 +171,7 @@ public class EmployeeExcelExporter {
                 createCell(sheet, row, columnCount++, activity5.getA5_id(), style);
                 createCell(sheet, row, columnCount++, activity5.getStudentName(), style);
                 createCell(sheet, row, columnCount++, activity5.getStandard(), style);
-                createCell(sheet, row, columnCount++, activity5.getDate(), style);
+                createCell(sheet, row, columnCount++, dateFormatter.format(activity5.getDate()), style);
                 createCell(sheet, row, columnCount++, activity5.getAchievement(), style);
                 createCell(sheet, row, columnCount++, activity5.getRemark(), style);
 
