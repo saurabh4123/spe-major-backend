@@ -30,10 +30,10 @@ public class EmployeeServicesImplementation implements EmployeeServices {
     @Override
     public List<Employee> getAllEmployees() {
         List<Employee> ls=this.employeeRepo.findAll();
-        List<Employee> ret=new ArrayList<>();
+        List<Employee> ret = new ArrayList<>();
         for(Employee e:ls)
         {
-            if(e.getRoles()=="Teacher")
+            if(e.getRoles().equals("Teacher"))
                 ret.add(e);
         }
         return ret;
