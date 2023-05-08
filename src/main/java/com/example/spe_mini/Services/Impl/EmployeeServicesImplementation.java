@@ -29,7 +29,14 @@ public class EmployeeServicesImplementation implements EmployeeServices {
 
     @Override
     public List<Employee> getAllEmployees() {
-        return this.employeeRepo.findAll();
+        List<Employee> ls=this.employeeRepo.findAll();
+        List<Employee> ret = new ArrayList<>();
+        for(Employee e:ls)
+        {
+            if(e.getRoles().equals("Teacher"))
+                ret.add(e);
+        }
+        return ret;
     }
 
     @Override
