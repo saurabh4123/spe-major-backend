@@ -54,7 +54,6 @@ public class EmployeeController {
         List<Activity4> activity4s = employeeServices.getActivity4s(employeeServices.getEmployeeByID(emp_id), month, year);
         List<Activity5> activity5s = employeeServices.getActivity5s(employeeServices.getEmployeeByID(emp_id), month, year);
         EmployeeExcelExporter excelExporter = new EmployeeExcelExporter(activity1s, activity2s, activity3s, activity4s, activity5s);
-
         excelExporter.export(response);
     }
 }

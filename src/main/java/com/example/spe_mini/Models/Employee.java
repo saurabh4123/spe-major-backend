@@ -22,13 +22,12 @@ public class Employee {
     private int e_id;
 
     private String name;
-    private String mobilenumber;
+    private String mobileNo;
     @Column(unique = true)
     private String email;
     private String address;
     private String password;
     private String roles;
-    private String photo;
     private String qualification;
     private Date joinDate;
     private String Department;
