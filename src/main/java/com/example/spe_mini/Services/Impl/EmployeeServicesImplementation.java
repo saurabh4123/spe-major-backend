@@ -3,6 +3,7 @@ import com.example.spe_mini.Models.*;
 import com.example.spe_mini.Repo.*;
 import com.example.spe_mini.Services.EmployeeServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -121,5 +122,19 @@ public class EmployeeServicesImplementation implements EmployeeServices {
             }
         }
         return tempActivity5s;
+    }
+
+    @Override
+    public LoginResponse login(LoginRequest request) {
+        Employee emp=this.employeeRepo.findByEmailAndPassword(request.getEmail(), request.getPassword());
+        if(emp == null)
+            throw new RuntimeException("Did not find patient with these credentials");
+        LoginResponse response=new LoginResponse();
+        response.setName(emp.getName());
+        response.setRoles(emp.getRoles());
+        response.setE_id(emp.getE_id());
+        response.setEmail(emp.getEmail());
+        response.setToken("HII");
+        return response;
     }
 }

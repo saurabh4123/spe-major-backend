@@ -32,6 +32,13 @@ public class EmployeeController {
         return new ResponseEntity<>(list,HttpStatus.ACCEPTED);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request)
+    {
+        LoginResponse response=this.employeeServices.login(request);
+        return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
+    }
+
     @GetMapping("/get-empById/{emp_id}")
     public ResponseEntity<?> getEmployeeById(@PathVariable("emp_id") Integer id)
     {
