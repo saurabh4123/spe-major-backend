@@ -1,7 +1,6 @@
 package com.example.spe_mini.Services;
 
 import com.example.spe_mini.Models.*;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -16,5 +15,5 @@ public interface EmployeeServices {
     List<Activity4> getActivity4s(Employee employee, int month, int year);
     List<Activity5> getActivity5s(Employee employee, int month, int year);
 
-    LoginResponse login(LoginRequest request);
+    LoginResponse login(AuthRequest request);
 }

@@ -2,12 +2,17 @@ package com.example.spe_mini.Controller;
 
 import com.example.spe_mini.Excel.EmployeeExcelExporter;
 import com.example.spe_mini.Models.*;
+import com.example.spe_mini.Repo.EmployeeRepo;
 import com.example.spe_mini.Services.EmployeeServices;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import com.example.spe_mini.Security.services.JwtService;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -20,6 +25,12 @@ import java.util.List;
 public class EmployeeController {
     @Autowired
     private EmployeeServices employeeServices;
+    @Autowired
+    private EmployeeRepo empRepo;
+    @Autowired
+    private  JwtService jwtService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
     @PostMapping("/create-employee")
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee){
         Employee employee1 = this.employeeServices.createEmployee(employee);
@@ -32,11 +43,28 @@ public class EmployeeController {
         return new ResponseEntity<>(list,HttpStatus.ACCEPTED);
     }
 
+//    @PostMapping("/login")
+//    public ResponseEntity<LoginResponse> login(@RequestBody AuthRequest request)
+//    {
+//        LoginResponse response=this.employeeServices.login(request);
+//        return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
+//    }
+
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request)
-    {
-        LoginResponse response=this.employeeServices.login(request);
-        return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
+    public ResponseEntity<?> login(@RequestBody AuthRequest authRequest){
+        Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+        if(authentication.isAuthenticated()) {
+            String token=jwtService.generateToken(authRequest.getEmail());
+            Employee emp=this.empRepo.findByEmail(authRequest.getEmail()).orElseThrow();
+            LoginResponse loginResponse=new LoginResponse();
+            loginResponse.setToken(token);
+            loginResponse.setRoles(emp.getRoles());
+            loginResponse.setName(emp.getName());
+            loginResponse.setEmail(emp.getEmail());
+            loginResponse.setE_id(emp.getE_id());
+            return new ResponseEntity<>(loginResponse,HttpStatus.ACCEPTED);
+        }
+        else return new ResponseEntity<>("Invalid Username or password",HttpStatus.CONFLICT);
     }
 
     @GetMapping("/get-empById/{emp_id}")
