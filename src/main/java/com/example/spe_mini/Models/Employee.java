@@ -43,6 +43,15 @@ public class Employee {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Activity5> activity5s;
 
-
-
+    public Employee(String name, String mobileNo, String email, String address, String password, String roles, String qualification, Date joinDate, String department) {
+        this.name = name;
+        this.mobileNo = mobileNo;
+        this.email = email;
+        this.address = address;
+        this.password = password;
+        this.roles = roles;
+        this.qualification = qualification;
+        this.joinDate = joinDate;
+        Department = department;
+    }
 }

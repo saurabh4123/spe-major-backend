@@ -4,8 +4,8 @@ import com.example.spe_mini.Repo.*;
 import com.example.spe_mini.Services.EmployeeServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -14,6 +14,8 @@ public class EmployeeServicesImplementation implements EmployeeServices {
     private EmployeeRepo employeeRepo;
     @Autowired
     private Activity1Repo activity1Repo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private Activity2Repo activity2Repo;
@@ -48,6 +50,7 @@ public class EmployeeServicesImplementation implements EmployeeServices {
     @Override
     public Employee createEmployee(Employee employee)
     {
+        employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         Employee employee1=this.employeeRepo.save(employee);
         return employee1;
     }
@@ -121,5 +124,19 @@ public class EmployeeServicesImplementation implements EmployeeServices {
             }
         }
         return tempActivity5s;
+    }
+
+    @Override
+    public LoginResponse login(AuthRequest request) {
+        Employee emp=this.employeeRepo.findByEmailAndPassword(request.getEmail(), request.getPassword());
+        if(emp == null)
+            throw new RuntimeException("Did not find patient with these credentials");
+        LoginResponse response=new LoginResponse();
+        response.setName(emp.getName());
+        response.setRoles(emp.getRoles());
+        response.setE_id(emp.getE_id());
+        response.setEmail(emp.getEmail());
+        response.setToken("lodu lalit");
+        return response;
     }
 }

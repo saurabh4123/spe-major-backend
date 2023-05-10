@@ -15,4 +15,5 @@ public interface EmployeeServices {
     List<Activity4> getActivity4s(Employee employee, int month, int year);
     List<Activity5> getActivity5s(Employee employee, int month, int year);
 
+    LoginResponse login(AuthRequest request);
 }
