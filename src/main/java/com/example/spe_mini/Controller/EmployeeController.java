@@ -2,12 +2,17 @@ package com.example.spe_mini.Controller;
 
 import com.example.spe_mini.Excel.EmployeeExcelExporter;
 import com.example.spe_mini.Models.*;
+import com.example.spe_mini.Repo.EmployeeRepo;
 import com.example.spe_mini.Services.EmployeeServices;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import com.example.spe_mini.Security.services.JwtService;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -21,6 +26,12 @@ import java.util.List;
 public class EmployeeController {
     @Autowired
     private EmployeeServices employeeServices;
+    @Autowired
+    private EmployeeRepo empRepo;
+    @Autowired
+    private  JwtService jwtService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
     @PostMapping("/create-employee")
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee){
         Employee employee1 = this.employeeServices.createEmployee(employee);
@@ -31,6 +42,30 @@ public class EmployeeController {
     {
         List<Employee> list=this.employeeServices.getAllEmployees();
         return new ResponseEntity<>(list,HttpStatus.ACCEPTED);
+    }
+
+//    @PostMapping("/login")
+//    public ResponseEntity<LoginResponse> login(@RequestBody AuthRequest request)
+//    {
+//        LoginResponse response=this.employeeServices.login(request);
+//        return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
+//    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody AuthRequest authRequest){
+        Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+        if(authentication.isAuthenticated()) {
+            String token=jwtService.generateToken(authRequest.getEmail());
+            Employee emp=this.empRepo.findByEmail(authRequest.getEmail()).orElseThrow();
+            LoginResponse loginResponse=new LoginResponse();
+            loginResponse.setToken(token);
+            loginResponse.setRoles(emp.getRoles());
+            loginResponse.setName(emp.getName());
+            loginResponse.setEmail(emp.getEmail());
+            loginResponse.setE_id(emp.getE_id());
+            return new ResponseEntity<>(loginResponse,HttpStatus.ACCEPTED);
+        }
+        else return new ResponseEntity<>("Invalid Username or password",HttpStatus.CONFLICT);
     }
 
     @GetMapping("/get-empById/{emp_id}")
@@ -46,19 +81,15 @@ public class EmployeeController {
         response.setContentType("application/octet-stream");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
-
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=report_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
-
         List<Activity1> activity1s = employeeServices.getActivity1s(employeeServices.getEmployeeByID(emp_id), month, year);
         List<Activity2> activity2s = employeeServices.getActivity2s(employeeServices.getEmployeeByID(emp_id), month, year);
         List<Activity3> activity3s = employeeServices.getActivity3s(employeeServices.getEmployeeByID(emp_id), month, year);
         List<Activity4> activity4s = employeeServices.getActivity4s(employeeServices.getEmployeeByID(emp_id), month, year);
         List<Activity5> activity5s = employeeServices.getActivity5s(employeeServices.getEmployeeByID(emp_id), month, year);
-
         EmployeeExcelExporter excelExporter = new EmployeeExcelExporter(activity1s, activity2s, activity3s, activity4s, activity5s);
-
         excelExporter.export(response);
     }
 

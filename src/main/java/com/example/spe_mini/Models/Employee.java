@@ -22,13 +22,12 @@ public class Employee {
     private int e_id;
 
     private String name;
-    private String mobilenumber;
+    private String mobileNo;
     @Column(unique = true)
     private String email;
     private String address;
     private String password;
     private String roles;
-    private String photo;
     private String qualification;
     private Date joinDate;
     private String Department;
@@ -44,6 +43,15 @@ public class Employee {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Activity5> activity5s;
 
-
-
+    public Employee(String name, String mobileNo, String email, String address, String password, String roles, String qualification, Date joinDate, String department) {
+        this.name = name;
+        this.mobileNo = mobileNo;
+        this.email = email;
+        this.address = address;
+        this.password = password;
+        this.roles = roles;
+        this.qualification = qualification;
+        this.joinDate = joinDate;
+        Department = department;
+    }
 }
