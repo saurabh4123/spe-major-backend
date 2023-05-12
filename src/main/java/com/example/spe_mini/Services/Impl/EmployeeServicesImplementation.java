@@ -126,17 +126,16 @@ public class EmployeeServicesImplementation implements EmployeeServices {
         return tempActivity5s;
     }
 
-    @Override
-    public LoginResponse login(AuthRequest request) {
-        Employee emp=this.employeeRepo.findByEmailAndPassword(request.getEmail(), request.getPassword());
-        if(emp == null)
-            throw new RuntimeException("Did not find patient with these credentials");
-        LoginResponse response=new LoginResponse();
-        response.setName(emp.getName());
-        response.setRoles(emp.getRoles());
-        response.setE_id(emp.getE_id());
-        response.setEmail(emp.getEmail());
-        response.setToken("lodu lalit");
-        return response;
-    }
+//    @Override
+//    public LoginResponse login(AuthRequest request) {
+//        Employee emp=this.employeeRepo.findByEmailAndPassword(request.getEmail(), request.getPassword());
+//        if(emp == null)
+//            throw new RuntimeException("Did not find patient with these credentials");
+//        LoginResponse response=new LoginResponse();
+//        response.setName(emp.getName());
+//        response.setRoles(emp.getRoles());
+//        response.setE_id(emp.getE_id());
+//        response.setEmail(emp.getEmail());
+//        return response;
+//    }
 }

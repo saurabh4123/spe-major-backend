@@ -1,5 +1,6 @@
 package com.example.spe_mini.Controller;
 
+import lombok.extern.slf4j.Slf4j;
 import com.example.spe_mini.Excel.EmployeeExcelExporter;
 import com.example.spe_mini.Models.*;
 import com.example.spe_mini.Repo.EmployeeRepo;
@@ -22,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
+@Slf4j
 @RequestMapping("/api/employee")
 public class EmployeeController {
     @Autowired
@@ -35,12 +37,14 @@ public class EmployeeController {
     @PostMapping("/create-employee")
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee){
         Employee employee1 = this.employeeServices.createEmployee(employee);
+        log.info("Employee added with employee id "+employee1.getE_id()+" and employee name "+employee1.getName());
         return new ResponseEntity<>(employee1, HttpStatus.CREATED);
     }
     @GetMapping("/get-all")
     public ResponseEntity<?> getAllEmployees()
     {
         List<Employee> list=this.employeeServices.getAllEmployees();
+        log.info("Sent list of all employees ");
         return new ResponseEntity<>(list,HttpStatus.ACCEPTED);
     }
 
@@ -63,15 +67,20 @@ public class EmployeeController {
             loginResponse.setName(emp.getName());
             loginResponse.setEmail(emp.getEmail());
             loginResponse.setE_id(emp.getE_id());
+            log.info("Login successful....");
             return new ResponseEntity<>(loginResponse,HttpStatus.ACCEPTED);
         }
-        else return new ResponseEntity<>("Invalid Username or password",HttpStatus.CONFLICT);
+        else {
+            log.info("Login failed...");
+            return new ResponseEntity<>("Invalid Username or password", HttpStatus.CONFLICT);
+        }
     }
 
     @GetMapping("/get-empById/{emp_id}")
     public ResponseEntity<?> getEmployeeById(@PathVariable("emp_id") Integer id)
     {
         Employee employee=this.employeeServices.getEmployeeByID(id);
+        log.info("Employee returned with id "+employee.getE_id());
         return new ResponseEntity<>(employee,HttpStatus.ACCEPTED);
     }
 
@@ -89,6 +98,7 @@ public class EmployeeController {
         List<Activity3> activity3s = employeeServices.getActivity3s(employeeServices.getEmployeeByID(emp_id), month, year);
         List<Activity4> activity4s = employeeServices.getActivity4s(employeeServices.getEmployeeByID(emp_id), month, year);
         List<Activity5> activity5s = employeeServices.getActivity5s(employeeServices.getEmployeeByID(emp_id), month, year);
+        log.info("Report generated for employee with id: "+emp_id+" and name: "+ employeeServices.getEmployeeByID(emp_id).getName());
         EmployeeExcelExporter excelExporter = new EmployeeExcelExporter(activity1s, activity2s, activity3s, activity4s, activity5s);
         excelExporter.export(response);
     }
@@ -109,6 +119,7 @@ public class EmployeeController {
         List<Activity3> activity3s = new ArrayList<Activity3>();
         List<Activity4> activity4s = new ArrayList<Activity4>();
         List<Activity5> activity5s = new ArrayList<Activity5>();
+        log.info("Report generated for admin...");
 
         for(int emp_id:emp_ids) {
 
