@@ -17,6 +17,7 @@ import com.example.spe_mini.Security.services.JwtService;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -91,4 +92,41 @@ public class EmployeeController {
         EmployeeExcelExporter excelExporter = new EmployeeExcelExporter(activity1s, activity2s, activity3s, activity4s, activity5s);
         excelExporter.export(response);
     }
+
+    @GetMapping("/report-admin")
+    public void generateAdminReport(HttpServletResponse response, @RequestParam("emp-ids") List<Integer> emp_ids, @RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("activities") List<Integer> activities) throws IOException
+    {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=report_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List<Activity1> activity1s = new ArrayList<Activity1>();
+        List<Activity2> activity2s = new ArrayList<Activity2>();
+        List<Activity3> activity3s = new ArrayList<Activity3>();
+        List<Activity4> activity4s = new ArrayList<Activity4>();
+        List<Activity5> activity5s = new ArrayList<Activity5>();
+
+        for(int emp_id:emp_ids) {
+
+            if(activities.contains(Integer.parseInt("1")))
+                activity1s.addAll(employeeServices.getActivity1s(employeeServices.getEmployeeByID(emp_id), month, year));
+            if(activities.contains(Integer.parseInt("2")))
+                activity2s.addAll(employeeServices.getActivity2s(employeeServices.getEmployeeByID(emp_id), month, year));
+            if(activities.contains(Integer.parseInt("3")))
+                activity3s.addAll(employeeServices.getActivity3s(employeeServices.getEmployeeByID(emp_id), month, year));
+            if(activities.contains(Integer.parseInt("4")))
+                activity4s.addAll(employeeServices.getActivity4s(employeeServices.getEmployeeByID(emp_id), month, year));
+            if(activities.contains(Integer.parseInt("5")))
+                activity5s.addAll(employeeServices.getActivity5s(employeeServices.getEmployeeByID(emp_id), month, year));
+
+        }
+        EmployeeExcelExporter excelExporter = new EmployeeExcelExporter(activity1s, activity2s, activity3s, activity4s, activity5s);
+
+        excelExporter.export(response);
+    }
+
 }
