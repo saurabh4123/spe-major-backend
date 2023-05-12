@@ -10,8 +10,11 @@ pipeline {
             git branch: 'master',credentialsId:'github-cred',url: 'https://github.com/meetmandhanemnm/spe-major.git'
             }
         }
-
-         
+        stage("Running Test cases"){
+            steps{
+                sh "mvn clean test"
+            }
+        }         
         stage("Maven Build"){
             steps{
                 sh "${M2_HOME}/bin/mvn clean install"
