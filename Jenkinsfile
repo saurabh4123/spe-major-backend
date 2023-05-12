@@ -12,7 +12,7 @@ pipeline {
         }
         stage("Running Test cases"){
             steps{
-                sh "mvn clean test"
+                sh "${M2_HOME}/bin/mvn clean test"
             }
         }         
         stage("Maven Build"){
